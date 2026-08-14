@@ -1,37 +1,60 @@
 # wizard-ui
 
-An interactive dashboard client built using **Next.js 15 (App Router)**, **Tailwind CSS**, and **Wagmi/ConnectKit** under the **DripForge** organization.
+Next.js 15 dashboard for **DripForge Wizard**. Maintainers paste a `package.json`, optionally connect a wallet, and download a Drips [`FUNDING.json`](https://docs.drips.network/get-support/claim-your-repository/) plus a suggested dependency-splits table.
 
-## Features
+This repository is one of three. Read them together:
 
-*   **Wallet Connection**: Uses ConnectKit to offer unified, web3-native onboarding across Ethereum, Optimism, and testnets.
-*   **Static Manifest Analyzer**: An interactive upload and copy dashboard allowing developers to upload `package.json` configurations and generate Drips-compatible `FUNDING.json` schemas instantly.
-*   **Rich Aesthetics**: Deep dark-mode gradients, interactive loading states, and sleek micro-animations tailoring visual elements for web3 users.
+| Layer | Repository | What it does |
+| --- | --- | --- |
+| UI | **wizard-ui** (this repo) | Analyzer UI, wallet, in-app docs |
+| API | [wizard-api](https://github.com/Drip-Forge/wizard-api) | `POST /analyze` — validation and splits proposal |
+| Chain | [wizard-contracts](https://github.com/Drip-Forge/wizard-contracts) | On-chain `SplitsLib` / `DependencySplits` |
 
-## Layout Structure
+**Docs in this repo**
 
-*   **`src/context/Web3Provider.tsx`**: Registers Wagmi Config, Viem RPC clients, and ConnectKit.
-*   **`src/components/Navbar.tsx`**: Header containing app logo, navigation, and connection action.
-*   **`src/components/FileUpload.tsx`**: Handles loading, errors, copying, downloading, and API communications with `wizard-api`.
-*   **`src/app/page.tsx`**: Landing layout integrating visual items and educational materials.
+- [Documentation index](docs/README.md)
+- [Getting started](docs/getting-started.md)
+- [Architecture](docs/architecture.md)
+- In-app hub: `/docs` once the app is running
+- [Contributing](CONTRIBUTING.md)
 
-## Development and Building
+Sibling docs: [wizard-api HTTP reference](https://github.com/Drip-Forge/wizard-api/blob/main/docs/api.md) · [wizard-contracts integration](https://github.com/Drip-Forge/wizard-contracts/blob/main/docs/integration.md)
 
-### Commands
+## Quick start
 
-*   **Install dependencies**:
-    ```bash
-    npm install
-    ```
-*   **Run local dev server (port 3000)**:
-    ```bash
-    npm run dev
-    ```
-*   **Build production files**:
-    ```bash
-    npm run build
-    ```
-*   **Start server**:
-    ```bash
-    npm run start
-    ```
+You need **wizard-api** running on port 3001 (or set `NEXT_PUBLIC_API_URL`).
+
+```bash
+# terminal 1
+cd wizard-api && npm install && npm run dev
+
+# terminal 2
+cd wizard-ui
+cp .env.example .env.local
+npm install
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Next.js on port 3000 |
+| `npm run build` | Production build |
+| `npm start` | Serve the production build |
+| `npm run typecheck` | `tsc --noEmit` |
+
+## What the analyzer produces
+
+- **`FUNDING.json`** — `{ "drips": { "ethereum": { "ownedBy": "0x…" } } }` to commit on your default branch, then [claim on Drips](https://docs.drips.network/get-support/claim-your-repository/)
+- **Splits proposal** — 80% owner / 20% equal pool across production dependencies, weights out of 1,000,000, ready for [DependencySplits](https://github.com/Drip-Forge/wizard-contracts/blob/main/docs/contracts.md)
+
+Connect a wallet and click **Wallet** to stamp the connected address as `ownedBy`.
+
+## Claiming this repo on Drips
+
+Replace the zero address in [`FUNDING.json`](FUNDING.json) with the maintainer wallet before claiming.
+
+## License
+
+[MIT](LICENSE) © Drip-Forge

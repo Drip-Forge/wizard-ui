@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Wizard API
+    url: https://github.com/Drip-Forge/wizard-api/issues
+    about: /analyze, validation, splits math
+  - name: Wizard contracts
+    url: https://github.com/Drip-Forge/wizard-contracts/issues
+    about: Solidity and Foundry
+  - name: Drips app
+    url: https://drips.network
+    about: Claiming a GitHub repository
